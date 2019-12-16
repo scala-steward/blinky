@@ -90,6 +90,9 @@ class Blinky(config: BlinkyConfig) extends SemanticRule("Blinky") {
       if (p == -1) mutatedInput.length else p
     }
 
+    //git diff --no-index --minimal file1 file2
+    %('git, 'diff, "--no-index", "--minimal", fileName, file2)
+
     def addLineNumbers(
         startLine: Int,
         linesBefore: List[String],
