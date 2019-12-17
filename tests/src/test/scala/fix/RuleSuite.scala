@@ -52,8 +52,8 @@ class RuleSuite extends SemanticRuleSuite() {
   }
 
   val only: Option[String] =
-    //Some("Playground") // << to run only one test
-    None
+    Some("All1") // << to run only one test
+//    None
 
   def testOnly(file: String): Unit = {
     testsToRun

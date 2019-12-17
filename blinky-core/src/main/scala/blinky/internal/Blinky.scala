@@ -3,6 +3,7 @@ package blinky.internal
 import java.io.{File, FileWriter}
 import java.util.concurrent.atomic.AtomicInteger
 
+import ammonite.ops._
 import blinky.v0.BlinkyConfig
 import metaconfig.Configured
 import play.api.libs.json.Json
@@ -90,8 +91,13 @@ class Blinky(config: BlinkyConfig) extends SemanticRule("Blinky") {
       if (p == -1) mutatedInput.length else p
     }
 
+    val file1 = tmp(input)
+    val file2 = tmp(mutatedInput)
+
     //git diff --no-index --minimal file1 file2
-    %('git, 'diff, "--no-index", "--minimal", fileName, file2)
+    val gitDiff =
+      scala.util.Try(%%('git, 'diff, "--no-index", "--minimal", file1, file2)(pwd))
+    println(gitDiff.failed.get)
 
     def addLineNumbers(
         startLine: Int,
